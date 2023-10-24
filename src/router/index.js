@@ -5,6 +5,7 @@ import Order from "@/views/Order.vue"
 import Report from "@/views/Report.vue";
 import Orders from "@/views/Orders.vue";
 import Dashboard from "@/views/Dashboard.vue";
+import Help from "@/views/Help.vue"
 
 const routes = [
   {
@@ -14,6 +15,10 @@ const routes = [
   {
     path: '/',
     component: Main
+  },
+  {
+    path: "/help",
+    component: Help
   },
   {
     path: '/order',

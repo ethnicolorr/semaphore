@@ -6,6 +6,20 @@ export default defineComponent({
   data() {
     return {
       show: false,
+      login: '',
+      password: '',
+      rules: {
+        required: v => !!v || 'Обязательное поле',
+        login: v => {
+          const pattern = /^[a-zA-Z0-9]{4,30}$/
+          return pattern.test(v) || 'Неверный формат логина'
+        }
+      }
+    }
+  },
+  methods: {
+    login() {
+
     }
   }
 })
@@ -19,13 +33,36 @@ export default defineComponent({
           <h1 class="title">СеМаФоР</h1>
           <div class="text pb-10">Корпоративный портал</div>
           <v-form>
-            <v-text-field color="primary" label="Логин" variant="outlined"></v-text-field>
-            <v-text-field color="primary" label="Пароль" variant="outlined"
-                          :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                          :type="show ? 'text' : 'password'"
-                          @click:append-inner="show = !show"
+            <v-text-field
+              color="primary"
+              label="Логин"
+              maxlength="30"
+              variant="outlined"
+              v-model="login"
+              :rules="[rules.required, rules.login]"
             ></v-text-field>
-            <v-btn block="true" color="primary" variant="flat" size="x-large" class="mt-1">Войти</v-btn>
+            <v-text-field
+              class="my-2"
+              color="primary"
+              label="Пароль"
+              variant="outlined"
+              :append-inner-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="show ? 'text' : 'password'"
+              @click:append-inner="show = !show"
+              v-model="password"
+              maxlength="30"
+              :rules="[rules.required]"
+            ></v-text-field>
+            <v-btn
+              :block="true"
+              color="primary"
+              variant="flat"
+              size="x-large"
+              class="mt-1"
+              @click="login()"
+            >
+              Войти
+            </v-btn>
           </v-form>
       </v-col>
     </v-row>
@@ -38,7 +75,7 @@ export default defineComponent({
 .title {
   text-align: center;
   font-family: "Montserrat Alternates",serif;
-  font-size: 4rem;
+  font-size: 4em;
   font-weight: normal;
   position: relative;
   z-index: 2;
