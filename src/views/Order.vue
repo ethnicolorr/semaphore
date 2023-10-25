@@ -1,4 +1,5 @@
 <script>
+
 import OrderForm from "@/components/OrderForm.vue"
 import PaymentForm from "@/components/PaymentForm.vue"
 import OrderConfirm from "@/components/OrderConfirm.vue";
@@ -8,7 +9,15 @@ export default {
   },
   data() {
     return {
-      progress: 25
+      progress: 25,
+      sender_full_name:'',
+      recipient_full_name:'',
+      sender_address:'',
+      recipient_address:'',
+      message:'',
+      rules: {
+        required: v => !!v || 'Обязательное поле',
+      },
     }
   },
   methods: {
@@ -17,7 +26,7 @@ export default {
     },
     newOrder() {
       this.progress = 25;
-    }
+    },
   }
 }
 </script>
@@ -38,7 +47,18 @@ export default {
         ></v-progress-linear>
         <form>
           <order-form v-if="progress === 25"/>
-          <v-textarea v-if="progress === 50" label="Текст сообщения" variant="outlined" color="primary" counter="400"></v-textarea>
+          <v-textarea v-if="progress === 50"
+                      label="Текст сообщения"
+                      variant="outlined"
+                      color="primary"
+                      counter="400"
+                      maxlength="400"
+                      class="mb-2"
+                      :clearable="true"
+                      :auto-grow="true"
+                      rows="8"
+                      :rules="[rules.required]"
+          ></v-textarea>
           <payment-form v-if="progress === 75"/>
           <v-btn block="true" variant="flat" color="primary" size="x-large" class="mb-4" v-if="progress < 75" @click="addProgress()">Продолжить</v-btn>
           <v-btn block="true" variant="flat" color="primary" size="x-large" class="mb-4" v-if="progress === 75" @click="addProgress()">Подтвердить</v-btn>

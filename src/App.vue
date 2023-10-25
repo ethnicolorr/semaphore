@@ -3,7 +3,6 @@
 </template>
 
 <script>
-
 import {defineComponent} from "vue";
 import MyInput from "@/components/UI/MyInput.vue";
 
