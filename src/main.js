@@ -2,7 +2,7 @@ import App from './App.vue'
 import { createApp } from 'vue'
 import { registerPlugins } from '@/plugins'
 import components from "@/components/UI";
-import router from "@/router";
+import { vMaska } from "maska"
 
 const app = createApp(App)
 
@@ -13,5 +13,6 @@ components.forEach(component => {
 registerPlugins(app)
 
 app
-  .use(router)
+  .directive('maska', vMaska)
   .mount('#app')
+

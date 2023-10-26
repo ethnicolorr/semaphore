@@ -13,8 +13,13 @@ export default {
     Заказ оплачен и теперь<br>ожидает обработки.<br>Примерное время доставки:
   </div>
   <div class="text mb-5 mt-5 d-flex align-center justify-center">
-      <strong>2 дня</strong>
-      <img src="@/assets/help.svg" alt="help">
+    <strong>2 дня</strong>
+    <v-tooltip location="end center" origin="auto">
+      <template v-slot:activator="{props}">
+        <img v-bind="props" src="@/assets/help.svg" alt="help">
+      </template>
+      <div class="text-center">Срок зависит от протяженности<br/>маршрута и загруженности башен</div>
+    </v-tooltip>
   </div>
   <div class="comment mb-8">Благодарим за пользование сервисом!</div>
   <v-btn block="true" variant="flat" color="primary" size="x-large" class="mb-4" @click="$router.push('/')">На главный экран</v-btn>

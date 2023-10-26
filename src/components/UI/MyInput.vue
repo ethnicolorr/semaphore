@@ -17,19 +17,15 @@ export default {
     :value="modelValue"
     @input="updateInput"
     type="text"
-    class="rounded-lg my-input"/>
+    class="rounded-lg my-input py-4 pl-4"/>
 </template>
 
 <style>
 .my-input {
-  background-color: #2B2A31;
-}
-
-.my-input:hover {
-  outline: 2px solid #619B9B !important;
+  background-color: #49454F;
 }
 
 .my-input:focus {
-  outline: 2px solid #619B9B !important;
+  outline: none;
 }
 </style>

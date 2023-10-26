@@ -1,8 +1,12 @@
 <script>
+import MyInput from "@/components/UI/MyInput.vue";
+
 export default {
+  components: {MyInput},
   data() {
     return {
       card_number:'',
+      card_owner:'',
       expire_date:'',
       cvv:'',
       rules: {
@@ -25,56 +29,61 @@ export default {
 </script>
 
 <template>
-  <v-card class="rounded-xl mb-8 py-5" color="gray">
-    <div class="mt-5">
-      <v-row>
-        <v-col cols="10" offset="1">
-          <v-text-field
-            variant="outlined"
-            label="Номер карты*"
-            color="primary"
-            maxlength="19"
-            v-model="card_number"
-            :value="formatCardNumber"
-            @input="updateValue"
-            :rules="[rules.required]"
-          ></v-text-field>
-        </v-col>
+  <v-card class="rounded-xl d-flex justify-center text-center py-7 mb-8" color="gray">
+    <v-col>
+      <v-row justify="center">
+        <my-input
+          class="input"
+          v-model="card_number"
+          required
+          placeholder="Номер карты*"
+          v-maska
+          data-maska="#### #### #### ####"/>
       </v-row>
-      <v-row class="my-n5">
-        <v-col cols="10" offset="1">
-          <v-text-field
-            variant="outlined"
-            label="Владелец карты*"
-            color="primary"
-            maxlength="22"
-            :rules="[rules.required]"
-          ></v-text-field>
-        </v-col>
+      <v-row justify="center">
+        <my-input
+          class="input my-4"
+          v-model="card_owner"
+          required
+          placeholder="Владелец карты*"
+          type="text"
+          maxlength="22"
+        />
       </v-row>
-      <v-row class="my-n3">
-        <v-col cols="6" offset="1">
-          <v-text-field
-            variant="outlined"
-            label="MM/YY*"
-            color="primary"
-            type="month"
-            :rules="[rules.required]"
-          ></v-text-field>
-        </v-col>
-        <v-col cols="4">
-          <v-text-field
-            variant="outlined"
-            label="CVC/CVV*"
-            color="primary"
-            maxlength="3"
-            :rules="[rules.required]"
-          ></v-text-field>
-        </v-col>
+      <v-row justify="center">
+        <my-input
+          class="input2 mr-3"
+          v-model="expire_date"
+          required
+          placeholder="Cрок действия*"
+          v-maska
+          data-maska="##/##"
+        />
+        <my-input
+          class="input3"
+          v-model="cvv"
+          required
+          placeholder="CVC/CVV*"
+          v-maska
+          data-maska="###"
+        />
       </v-row>
-    </div>
+    </v-col>
   </v-card>
 </template>
 
 <style scoped>
+
+.input {
+  width: 88%
+}
+
+.input2 {
+  width: 52%
+}
+
+.input3 {
+  width: 33%
+}
+
 </style>

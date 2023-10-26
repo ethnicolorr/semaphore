@@ -4,6 +4,7 @@ import {defineComponent} from "vue";
 export default defineComponent({
   data() {
     return {
+      test: '',
       sender_full_name:'',
       recipient_full_name:'',
       sender_address:'',
@@ -14,18 +15,18 @@ export default defineComponent({
     }
   },
   methods: {
-  }
+  },
 })
 </script>
 
 <template>
   <v-text-field
-    color="primary"
-    label="ФИО отправителя"
-    variant="outlined"
     v-model="sender_full_name"
+    label="ФИО отправителя"
     :rules="[rules.required]"
     maxlength="50"
+    color="primary"
+    variant="outlined"
   ></v-text-field>
   <v-text-field
     class="my-2"
