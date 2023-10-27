@@ -55,6 +55,7 @@ export default defineComponent({
             ></v-text-field>
             <v-btn
               :block="true"
+              type="submit"
               color="primary"
               variant="flat"
               size="x-large"

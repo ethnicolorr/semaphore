@@ -1,5 +1,5 @@
 <template>
-  <div class="rounded-lg px-3 py-3 bg-gray" v-if="task.title"> <!--костыльное условие-->
+  <div class="rounded-lg px-3 py-3 bg-gray" v-if="task.title"> <!--костыль-->
     <v-row>
       <v-col class="title">{{task.title}}</v-col>
       <v-menu location="start">
@@ -24,17 +24,8 @@
               </v-list-item>
             </template>
             <v-list bg-color="gray">
-              <v-list-item>
-                <v-list-item-title>Отложено</v-list-item-title>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>Открыто</v-list-item-title>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>В работе</v-list-item-title>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>Решено</v-list-item-title>
+              <v-list-item v-for="s in status" :key="s.id">
+                <v-list-item-title @click="changeStatus(task.id)">{{ s.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -74,6 +65,28 @@
 <script>
 
 export default {
+  data() {
+    return {
+      status: [
+        {
+          id: 1,
+          title: 'Отложено'
+        },
+        {
+          id: 2,
+          title: 'Открыто'
+        },
+        {
+          id: 3,
+          title: 'В работе'
+        },
+        {
+          id: 4,
+          title: 'Решено'
+        }
+      ]
+    }
+  },
   props: {
     task: {
       type: Object,
@@ -85,6 +98,11 @@ export default {
     //   return `${date.getMonth()}/${date.getYear()}`
     // }
   },
+  methods: {
+    changeStatus(task) {
+      // task.
+    }
+  }
 };
 </script>
 

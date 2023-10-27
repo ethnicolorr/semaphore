@@ -18,4 +18,10 @@ export default defineComponent({
   background-color: #1E1D24;
   min-height: 100vh;
 }
+
+.info {
+  text-align: center;
+  font-family: "Montserrat",serif;
+  font-size: 1.3rem;
+}
 </style>

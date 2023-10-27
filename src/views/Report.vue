@@ -162,7 +162,7 @@ export default {
         color="primary"
         rounded="lg"
       >
-        <b>Отчёт отправлен!</b>
+        <b>Отчёт успешно отправлен!</b>
       </v-snackbar>
     </v-main>
   </v-layout>
