@@ -25,20 +25,14 @@
             </template>
             <v-list bg-color="gray">
               <v-list-item v-for="s in status" :key="s.id">
-                <v-list-item-title @click="changeStatus(task.id)">{{ s.title }}</v-list-item-title>
+                <v-list-item-title @click="changeStatus(s.id)">{{ s.title }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
-          <v-list-item>
+          <v-list-item v-for="i in items" :key="i.id">
             <v-list-item-title>
-              <v-icon icon="mdi-circle-edit-outline" class="mr-2"></v-icon>
-              Изменить
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title>
-              <v-icon icon="mdi-trash-can-outline" class="mr-2"></v-icon>
-              Удалить
+              <v-icon :icon="i.icon" class="mr-2"></v-icon>
+              {{ i.title }}
             </v-list-item-title>
           </v-list-item>
         </v-list>
@@ -68,22 +62,14 @@ export default {
   data() {
     return {
       status: [
-        {
-          id: 1,
-          title: 'Отложено'
-        },
-        {
-          id: 2,
-          title: 'Открыто'
-        },
-        {
-          id: 3,
-          title: 'В работе'
-        },
-        {
-          id: 4,
-          title: 'Решено'
-        }
+        { id: 0, title: 'Отложено' },
+        { id: 1, title: 'Открыто' },
+        { id: 2, title: 'В работе' },
+        { id: 3, title: 'Решено' }
+      ],
+      items: [
+        { id: 0, title: 'Изменить', icon: 'mdi-circle-edit-outline'},
+        { id: 1, title: 'Удалить', icon: 'mdi-trash-can-outline'}
       ]
     }
   },
@@ -91,7 +77,8 @@ export default {
     task: {
       type: Object,
       default: () => ({})
-    }
+    },
+    col_id: null,
   },
   computed: {
     // formatDate(date) {
@@ -99,8 +86,12 @@ export default {
     // }
   },
   methods: {
-    changeStatus(task) {
-      // task.
+    changeStatus(status) {
+      this.$emit('changeStatus', {
+        task: this.task,
+        old_column: this.col_id,
+        new_column: status
+      })
     }
   }
 };

@@ -12,15 +12,9 @@ export default {
   data() {
     return {
       tab: null,
-      mock_task: { // костыль
-        id: 0,
-        title: "123",
-        date: "2023-10-21T09:00:53",
-        type: "Обзор",
-        tower: "13"
-      },
       columns: [
         {
+          id: 0,
           title: "Отложено",
           tasks: [
             {
@@ -44,7 +38,7 @@ export default {
               tower: "АМ12"
             },
             {
-              id: 5,
+              id: 3,
               title: "Обзор загорожен",
               date: "2023-10-21T09:00:53",
               type: "Обзор",
@@ -53,14 +47,35 @@ export default {
           ]
         },
         {
+          id: 1,
           title: "Открыто",
           tasks: [
             {
-              id: 6,
+              id: 4,
               date: "2023-10-21T09:00:53",
               type: "Mock",
               tower: "0"
             },
+            {
+              id: 5,
+              title: "Обзор загорожен",
+              date: "2023-10-21T09:00:53",
+              type: "Обзор",
+              tower: "АМ12"
+            },
+            {
+              id: 6,
+              title: "Поломка рычагов",
+              date: "2023-10-21T09:00:53",
+              type: "Панели",
+              tower: "АМ12"
+            }
+          ]
+        },
+        {
+          id: 2,
+          title: "В работе",
+          tasks: [
             {
               id: 7,
               title: "Обзор загорожен",
@@ -74,19 +89,26 @@ export default {
               date: "2023-10-21T09:00:53",
               type: "Панели",
               tower: "АМ12"
-            }
+            },
+            {
+              id: 9,
+              title: "Поломка рычагов",
+              date: "2023-10-21T09:00:53",
+              type: "Панели",
+              tower: "АМ12"
+            },
+            {
+              id: 10,
+              date: "2023-10-21T09:00:53",
+              type: "Mock",
+              tower: "0"
+            },
           ]
         },
         {
-          title: "В работе",
+          id: 3,
+          title: "Решено",
           tasks: [
-            {
-              id: 9,
-              title: "Обзор загорожен",
-              date: "2023-10-21T09:00:53",
-              type: "Обзор",
-              tower: "АМ12"
-            },
             {
               id: 11,
               title: "Поломка рычагов",
@@ -96,9 +118,9 @@ export default {
             },
             {
               id: 12,
-              title: "Поломка рычагов",
+              title: "Обзор загорожен",
               date: "2023-10-21T09:00:53",
-              type: "Панели",
+              type: "Обзор",
               tower: "АМ12"
             },
             {
@@ -108,33 +130,17 @@ export default {
               tower: "0"
             },
           ]
-        },
-        {
-          title: "Решено",
-          tasks: [
-            {
-              id: 14,
-              title: "Поломка рычагов",
-              date: "2023-10-21T09:00:53",
-              type: "Панели",
-              tower: "АМ12"
-            },
-            {
-              id: 15,
-              title: "Обзор загорожен",
-              date: "2023-10-21T09:00:53",
-              type: "Обзор",
-              tower: "АМ12"
-            },
-            {
-              id: 16,
-              date: "2023-10-21T09:00:53",
-              type: "Mock",
-              tower: "0"
-            },
-          ]
         }
       ]
+    }
+  },
+  methods: {
+    onChange (data) {
+      let old_ix = data.old_column
+      let new_ix = data.new_column
+      let task_ix = this.columns[old_ix].tasks.indexOf(data.task)
+      this.columns[old_ix].tasks.splice(task_ix, 1)
+      this.columns[new_ix].tasks.push(data.task)
     }
   }
 }
@@ -169,7 +175,7 @@ export default {
           <v-layout class="px-10 pt-1" row>
             <div
               v-for="column in columns"
-              :key="column.title"
+              :key="column.id"
               class="py-3 mr-5 column-width"
             >
               <div class="d-flex flex-row align-center mb-1">
@@ -194,7 +200,9 @@ export default {
                   >
                     <task-card
                       :task="element"
+                      :col_id="column.id"
                       class="cursor-move my-3"
+                      @changeStatus="onChange"
                     ></task-card>
                   </template>
                 </draggable>

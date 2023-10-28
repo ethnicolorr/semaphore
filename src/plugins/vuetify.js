@@ -1,7 +1,6 @@
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
-import {VBtn} from "vuetify/components";
 
 const customTheme = {
   dark: true,
@@ -16,22 +15,10 @@ const customTheme = {
 }
 
 export default createVuetify({
-  aliases: {
-    VBtnCheck: VBtn,
-  },
-  // defaults: {
-    // VBtn: {
-    //   style:
-    //     'background-color: #619B9B; ' +
-    //     'color: white; ' +
-    //     'text-transform: none;' +
-    //     'font-size: 16pt'
-    // },
-  // },
   theme: {
-    defaultTheme: 'customTheme',
     themes: {
       customTheme,
     },
+    defaultTheme: 'customTheme',
   },
 })

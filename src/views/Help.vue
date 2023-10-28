@@ -6,7 +6,7 @@
   <v-container class="h-screen d-flex align-center">
     <v-row>
       <v-col cols="4" offset="4">
-        <img src="src/assets/icon.svg" alt="paper-plane">
+        <img src="../assets/icon.svg" alt="paper-plane">
         <h1 class="title">СеМаФоР</h1>
         <div class="text py-10">Упс! Тут пока ничего нет</div>
         <v-btn block="true"

@@ -5,11 +5,6 @@ export default {
       progress: 100,
     }
   },
-  methods: {
-    // newOrder() {
-    //   this.$emit("newOrder")
-    // }
-  }
 }
 </script>
 
