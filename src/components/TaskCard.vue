@@ -49,8 +49,8 @@
         </v-avatar>
       </v-col>
       <v-col class="ml-4">
-        <p class="date">{{task.date.substring(11,16)}}</p>
-        <p class="date">{{task.date.substring(8,10)}}/{{task.date.substring(5,7)}}/{{task.date.substring(2,4)}}</p> <!--костыль-->
+        <p class="date">{{ task.date.substring(11,16) }}</p>
+        <p class="date">{{ formatDate(task.date) }}</p>
       </v-col>
     </v-row>
 
@@ -80,11 +80,6 @@ export default {
     },
     col_id: null,
   },
-  computed: {
-    // formatDate(date) {
-    //   return `${date.getMonth()}/${date.getYear()}`
-    // }
-  },
   methods: {
     changeStatus(status) {
       this.$emit('changeStatus', {
@@ -92,7 +87,11 @@ export default {
         old_column: this.col_id,
         new_column: status
       })
-    }
+    },
+    formatDate(date0) {
+      let date = new Date(date0);
+      return `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+    },
   }
 };
 </script>
