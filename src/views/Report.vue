@@ -8,93 +8,60 @@ export default {
     return {
       snackbar: false,
       isOk: null,
+      rules: {
+        required: v => !!v || 'Обязательное поле',
+      },
+
       defSelected: [],
       defectIds: [],
       defectTypeIds: [],
-      comment: [],
+      comment: '',
 
       defs: [
         {
           id: 1,
           title: 'Панели',
           types: [
-            {
-              id: 0,
-              title: 'Дефект 1'
-            },
-            {
-              id: 1,
-              title: 'Дефект 2'
-            },
+            { id: 0, title: 'Дефект 1' },
+            { id: 1, title: 'Дефект 2' },
           ]
         },
         {
           id: 2,
           title: 'Обзор',
           types: [
-            {
-              id: 0,
-              title: 'Дефект 1'
-            },
-            {
-              id: 1,
-              title: 'Дефект 2'
-            },
+            { id: 0, title: 'Дефект 1' },
+            { id: 1, title: 'Дефект 2' },
           ]
         },
         {
           id: 3,
           title: 'Освещение',
           types: [
-            {
-              id: 0,
-              title: 'Дефект 1'
-            },
-            {
-              id: 1,
-              title: 'Дефект 2'
-            },
+            { id: 0, title: 'Дефект 1' },
+            { id: 1, title: 'Дефект 2' },
           ]
+        },
+        {
+          id: 4,
+          title: 'Другое',
+          comment: ''
         }
       ],
-
-      defects: {
-        1: 'Панели',
-        2: 'Обзор',
-        3: 'Освещение'
-      },
-      types: [
-        {
-          defect_types: {
-            0: 'Дефект 1',
-            1: 'Дефект 2',
-            2: 'Дефект 3'
-          }
-        },
-        {
-          defect_types: {
-            3: 'Дефект 1',
-            4: 'Дефект 2',
-            5: 'Дефект 3'
-          }
-        },
-        {
-          defect_types: {
-            6: 'Обзор загорожен',
-            7: 'Дефект 2',
-            8: 'Дефект 3',
-            9: 'Дефект 4'
-          }
-        },
-      ]
     }
   },
   methods: {
     addDef(arr, def) {
+      console.log(this.defectIds)
+      console.log(this.defectTypeIds)
       if(arr.indexOf(def) === -1)
         arr.push(def)
+      else if(def.title==='Другое') {
+        arr.splice(arr.indexOf(def),1)
+        this.comment = ''
+      }
       else
-        arr.splice(arr.indexOf(def))
+        arr.splice(arr.indexOf(def),1)
     },
     sendReport() {
       this.defSelected.length = 0;
@@ -126,7 +93,7 @@ export default {
       <v-divider class="my-6"></v-divider>
       <div v-if="isOk === 0">
         <div class="text_report">Где возник дефект?</div>
-        <v-btn-toggle multiple="true" class="mt-5" color="primary" v-model="defSelected">
+        <v-btn-toggle :multiple="true" class="mt-5" color="primary" v-model="defSelected">
           <v-btn
             rounded="lg"
             class="btn mr-3"
@@ -140,18 +107,37 @@ export default {
         <v-divider class="my-6"></v-divider>
       </div>
       <div v-if="isOk === 0" v-for="i in defectIds" :key="defectIds.id">
-        <div class="text_report">{{i.title}}: выберите тип дефекта</div>
-        <v-btn-toggle multiple="true" class="mt-5" color="primary">
-          <v-btn
-            class="mr-3 btn"
-            rounded="lg"
-            v-for="j in defectIds.find(id => id === i).types"
-            :key="j.id"
-            @click="addDef(this.defectTypeIds, j)"
-          >{{j.title}}</v-btn>
-        </v-btn-toggle>
+        <div v-if="i.title !== 'Другое'">
+          <div class="text_report">{{i.title}}: выберите тип дефекта</div>
+          <v-btn-toggle :multiple="true" class="mt-6" color="primary">
+            <v-btn
+              class="mr-3 btn"
+              rounded="lg"
+              v-for="j in defectIds.find(id => id === i).types"
+              :key="j.id"
+              @click="addDef(this.defectTypeIds, j)"
+            >{{j.title}}</v-btn>
+          </v-btn-toggle>
+          <v-divider class="my-6"></v-divider>
+        </div>
+      </div>
+      <div v-if="this.defectIds.find(def => def.id === 4)">
+        <v-textarea
+          class="w-33 mb-n5 mt-6"
+          color="primary"
+          variant="outlined"
+          label="Опишите проблему"
+          v-model="comment"
+          :rules="[rules.required]"
+          counter="100"
+          :clearable="true"
+          :auto-grow="true"
+          rows="3"
+          maxlength="100"
+        ></v-textarea>
         <v-divider class="my-6"></v-divider>
       </div>
+
       <div class="mb-8">
         <v-btn rounded="lg" size="x-large" class="mr-3 btn" color="primary" @click="sendReport">Подтвердить</v-btn>
         <v-btn rounded="lg" size="x-large" class="btn" @click="cancel">Сброс</v-btn>
