@@ -42,8 +42,17 @@ export default {
     color="primary"
     v-model="progress"
     :height="5"
-    class="mb-8"
   ></v-progress-linear>
+  <div class="sum text-center d-flex justify-center my-5">
+    К оплате:
+    <strong class="mx-2">2 $</strong>
+    <v-tooltip location="end center" origin="auto">
+      <template v-slot:activator="{props}">
+        <img v-bind="props" src="@/assets/help.svg" alt="help" class="help">
+      </template>
+      <div class="text-center">Стоимость зависит от протяженности<br/>маршрута, загруженности башен<br/>и длины сообщения</div>
+    </v-tooltip>
+  </div>
   <v-form @submit.prevent>
     <v-card class="rounded-xl d-flex justify-center text-center py-7 mb-8" color="gray">
       <v-col>
@@ -125,6 +134,16 @@ export default {
 
 .input3 {
   width: 33%
+}
+
+.sum {
+  font-family: 'Montserrat',serif;
+  font-size: 1.2rem;
+}
+
+.help {
+  width: 1.6em;
+  height: 1.6em;
 }
 
 </style>
